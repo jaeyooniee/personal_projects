@@ -1,6 +1,7 @@
 # Call Option Strike Optimizer by Python
 
 This program evaluates multiple call option contracts and identifies the strike price that returns the highest profit based on the user’s expected future price. It also compares option investment returns against direct stock investment to recommend the optimal strategy.
+
 ---
 
 ## Features
