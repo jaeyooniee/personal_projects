@@ -1,4 +1,6 @@
-# market_research_in_python
+# personal_projects repo by Jaeyoon Chung (2025~)
 
-- This repository will contain my projects about stock market and macro economics. 
-- Each project has been assigned a branch.
+- This repository will contain my projects about various markets and macro economics. 
+- Finished the first project about S&P indices analysis project in Oct 2025.
+- Working on an call option optimization program from Nov 2025.
+- Notice: Every project has not permanently finished but has been developing regularly.
