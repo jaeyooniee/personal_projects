@@ -13,5 +13,5 @@ This program evaluates multiple call option contracts and identifies the strike 
 ---
 
 ## Further Improvements
-1. Collecting data in .csv file to manage a number of inputs effectively
+1. Collecting data in .csv file to manage a number of inputs effectively (Added in 27/11/2025. THU)
 2. Add functions such as evaluating the same for put options and comparing different options based on maturity
