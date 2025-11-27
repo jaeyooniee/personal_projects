@@ -2,6 +2,8 @@
 # Details: Find the most profitable call option strike based on expected stock price. 
 # Details: This includes automatic budget allocation and comparison with direct stock investing.
 
+import csv
+
 print("------------------Finding the best options possible!!------------------\n")
 
 while True:
@@ -11,20 +13,20 @@ while True:
     budget = float(input("How much are you considering to invest in? ($USD): "))
     stock_amount = int(budget/current_price)
 
-    print("\nPlease type in the Strike Price($) and Ask Price($)")
-    print("*If you want to stop typing in the prices, input '-1'...\n")
+    file_path = input("\nEnter the CSV file name for options data: ")
 
     call_option_info = []
     option_amount = []
 
-    while True:
-        x = list(map(float, input().split()))
+    with open(file_path, "r") as f: # Download option data file from Barchart.com
+        reader = csv.DictReader(f)
 
-        if len(x) == 1 and x[0] == -1:
-            break
+        for row in reader:
+            strike = float(row["Strike"])
+            ask = float(row["Ask"])
 
-        call_option_info.append(x)
-        option_amount.append(int(budget/x[-1]))
+            call_option_info.append([strike, ask])
+            option_amount.append(int(budget / ask))
 
     expected_price = float(input(f"\nWhat is the expected price of {ticker}? ($USD): "))
 
