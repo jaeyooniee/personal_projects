@@ -3,6 +3,8 @@
 # Details: This includes automatic budget allocation and comparison with direct stock investing.
 
 import csv
+import os
+import datetime
 
 print("------------------Finding the best options possible!!------------------\n")
 
@@ -14,19 +16,33 @@ while True:
     stock_amount = int(budget/current_price)
 
     file_path = input("\nEnter the CSV file name for options data: ")
+    file_name = os.path.basename(file_path)
+
+    idx = file_name.index('-exp-')
+    maturity_date = file_name[idx+5:idx+15]
+
+    print(f"\nThe Expiring Date is {maturity_date}.")
 
     call_option_info = []
-    option_amount = []
+    contracts_amount = []
 
     with open(file_path, "r") as f: # Download option data file from Barchart.com
         reader = csv.DictReader(f)
 
         for row in reader:
-            strike = float(row["Strike"])
-            ask = float(row["Ask"])
+            if not row["Strike"][0].isdigit():
+                continue
 
-            call_option_info.append([strike, ask])
-            option_amount.append(int(budget / ask))
+            strike = float(row['Strike'])
+            ask = float(row['Ask'])
+            types = row['Type']
+
+            if types == 'Put':
+                continue
+
+            else:
+                call_option_info.append([strike, ask])
+                contracts_amount.append(budget // (ask*100)) # how many option contracts is the user buying
 
     expected_price = float(input(f"\nWhat is the expected price of {ticker}? ($USD): "))
 
@@ -34,8 +50,10 @@ while True:
     info_length = len(call_option_info)
 
     for i in range(info_length):
-        profit = max(expected_price-call_option_info[i][0]-call_option_info[i][-1], 0) * option_amount[i]
-        net_profit.append(profit)
+        intrinsic = max(expected_price-call_option_info[i][0], 0) * 100
+        cost = call_option_info[i][1] * 100
+
+        net_profit.append((intrinsic-cost) * contracts_amount[i]) 
 
     max_profit = max(net_profit)
 
@@ -48,7 +66,7 @@ while True:
 
     for i in range(info_length):
         if net_profit[i] == max_profit:
-            print(f"Strike Price: ${call_option_info[i][0]:.1f}")
+            print(f"Best Strike Price: ${call_option_info[i][0]:.1f}!!")
 
     print("\n-------------------Comments-------------------\n")
 
@@ -68,6 +86,8 @@ Therfore, it is wise to invest in call option of {ticker}.
     while True:
         is_end = False
         n = int(input("\nIf you want to see more information of the results. Choose functions:\n 1. See every option result\n 2. Go through other stock/index\n 3. End program\nPlease enter a number: "))
+        print()
+
         if n == 1:
             print("Strike  Returns")
             for i in range(info_length):
