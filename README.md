@@ -1,6 +1,18 @@
-# personal_projects repo by Jaeyoon Chung (2025~)
+# Portfolio Manager by Python
 
-- This repository will contain my projects about various markets and macro economics. 
-- Finished the first project about **S&P Indices Analysis** project in Oct 2025.
-- Working on an **Call Option Optimization** program from Nov 2025.
-- Notice: Every project has not permanently finished but has been developing regularly.
+This program compares Sharpe Ratio between my real life portfolio and S&P 100 ETF (OEF) which is the benchmark of my portfolio and evaluate the overall performance.
+The program also shows visual comparison between those two.
+
+---
+
+## Features
+1. Hardcoded Stock Lists (Portfolio)
+2. Using FX features to convert KRW to USD for Sharpe Ratio integration
+3. Compare Sharpe Ratio between the portfolio and the benchmark  
+4. Visualise the returns of the portfolio and the benchmark
+
+---
+
+## Further Improvements
+1. Changing Benchmark
+2. Adding more features in both program and visualisation
