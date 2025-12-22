@@ -36,3 +36,15 @@ def simple_return(prices, start_date, end_date):
     print("\n------------------------------")
 
     return simple_price_data 
+
+def sharpe_ratio(price_series):
+    returns = price_series.pct_change().dropna()
+    mean_return = returns.mean()
+    volatility = returns.std()
+
+    if volatility == 0:
+        return None
+
+    sharpe = (mean_return / volatility) * (252 ** 0.5)
+
+    return sharpe
