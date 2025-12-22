@@ -81,12 +81,21 @@ of revolution so far. Human will find an answer to improve the possible downside
 
 
 """
+
+"""
+Update 21/12/2025 - Added Sharpe Ratio Analysis
+
+I found that from 2020-01-01 to 2024-12-31, the sharpe ratio of S&P100 was 0.75 and that of S&P500 was 0.67.
+This means that not even the returns of S&P100 outperformed the 'famous' index S&P500, also in terms of volatility or liquidity,
+S&P100 was doing better. The result supports my argument that S&P100 is more efficient index to invest than S&P500 over time.
+
+"""
 # the code starts here
 
 import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
-from data_analysis import load_data, simple_return
+from data_analysis import load_data, simple_return, sharpe_ratio
 import matplotlib.dates as mdates
 
 def main():
@@ -159,6 +168,11 @@ def main():
     print("===============================")
 
     print(f"S&P100 wins: {wins}/{total} ({win_rate:.2f}%)")
+
+    sharpe_snp100 = sharpe_ratio(prices["S&P100"])
+    sharpe_snp500 = sharpe_ratio(prices["S&P500"])
+
+    print(f"\nSharpe Ratio: S&P100 - {sharpe_snp100:.2f}, S&P500 - {sharpe_snp500:.2f}")
 
     plt.figure(figsize=(12, 6))
     plt.plot(
